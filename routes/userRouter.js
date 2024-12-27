@@ -59,8 +59,9 @@ router.post("/", async (req, res) => {
       .json({ status: "error", message: "Password is required" });
   }
   const hashedPass = await hashedPassword(password);
+  const lowerCaseEmail = email.toLowerCase();
   try {
-    const newUser = new User({ name, email, password: hashedPass });
+    const newUser = new User({ name, email:lowerCaseEmail, password: hashedPass });
     const savedUser = await newUser.save();
     res.status(201).json({
       status: "success",
